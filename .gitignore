@@ -1,0 +1,5 @@
+*.pyc
+virtualenv
+
+# Settings
+geo/settings/local.py
