@@ -61,8 +61,9 @@ Put the settings you want on the deployment machine in `geo/settings/deploy.py`
 and then
 
 ```bash
-$ fab deploy:host=hostname
+$ fab deploy:host=ssh_config_alias
 ```
 
-Note the neither memcached nor POSTGis are configured by the puppet
+Note that neither memcached nor POSTGis are configured by the puppet
 provisioning step, so you will reasonably need to have those already running
+somewhere and have your deployment settings point to them

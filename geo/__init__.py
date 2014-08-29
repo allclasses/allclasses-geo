@@ -24,7 +24,7 @@ def application(env, start_response):
     except AbortException as e:
         status, result = e.status, {"error": e.error}
 
-    response = json.dumps({"result": result})
+    response = json.dumps(result)
     headers = [
         ("Content-Type", "application/json"),
         ("Content-Length", str(len(response)))
@@ -38,7 +38,7 @@ def _process(request):
     # Try cache for response
     cached = cache.get(request)
     if cached is not None:
-        return 202, cached
+        return 202, {"result": cached}
 
     # Get data and service
     data = request.json()
@@ -49,7 +49,7 @@ def _process(request):
 
     # Cache the result with a spawned event and return response
     gevent.spawn(cache.save, request, result)
-    return 202, result
+    return 202, {"result": result}
 
 
 def _validate(request):

@@ -8,6 +8,7 @@ exec {"disable firewall":
   command => "ufw disable"
 }
 
+exec { "apt-get update": } ->
 package {
   "curl": ensure => installed;
   "git": ensure => installed;

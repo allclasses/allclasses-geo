@@ -9,7 +9,7 @@ class nginx {
     content => template("nginx/nginx.conf"),
     notify => Service[nginx]
   }
-  file { "/etc/nginx/conf.d/pipeline.conf":
+  file { "/etc/nginx/conf.d/geo.conf":
     content => template("nginx/geo.conf"),
     notify => Service[nginx]
   }

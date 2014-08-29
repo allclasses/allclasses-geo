@@ -3,3 +3,4 @@ virtualenv
 
 # Settings
 geo/settings/local.py
+geo/settings/deployment.py
