@@ -29,7 +29,7 @@ def reverse_geocode_tiger(latitude, longitude):
     # Execute the geocode query
     conn = get_tiger_db_conn()
     cursor = conn.cursor()
-    cursor.execute(query, [latitude, longitude])
+    cursor.execute(query, [longitude, latitude])
     result = cursor.fetchone()
 
     # Must match columns in "query", defined above
