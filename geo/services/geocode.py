@@ -1,5 +1,5 @@
 from geo.requestlib import AbortException
-from geo.services.connections import get_tiger_db_conn
+from geo.services.connections import get_tiger_db_conn, put_tiger_db_conn
 
 
 class GeocodeService(object):
@@ -31,6 +31,7 @@ class GeocodeService(object):
         cursor = conn.cursor()
         cursor.execute(query, [rev_location_string])
         result = cursor.fetchone()
+        put_tiger_db_conn(conn)
 
         # Must match columns in "query", defined above
         if result:

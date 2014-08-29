@@ -1,5 +1,5 @@
 from geo.requestlib import AbortException
-from geo.services.connections import get_tiger_db_conn
+from geo.services.connections import get_tiger_db_conn, put_tiger_db_conn
 
 
 class ReverseGeocodeService(object):
@@ -31,6 +31,7 @@ class ReverseGeocodeService(object):
         cursor = conn.cursor()
         cursor.execute(query, [longitude, latitude])
         result = cursor.fetchone()
+        put_tiger_db_conn(conn)
 
         # Must match columns in "query", defined above
         if result:

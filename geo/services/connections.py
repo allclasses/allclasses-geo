@@ -15,3 +15,7 @@ TIGER_DB_CONNECTION_POOL = ThreadedConnectionPool(
 
 def get_tiger_db_conn():
     return TIGER_DB_CONNECTION_POOL.getconn()
+
+
+def put_tiger_db_conn(conn):
+    return TIGER_DB_CONNECTION_POOL.putconn(conn)
