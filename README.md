@@ -9,6 +9,18 @@ Allclasses Geo Services
 $ curl -H 'Authorization: myToken' \
        -d '{"location": "109 Kingston Street, Boston MA"}' \
        http://localhost:5050/geocode/
+
+{
+  "result": {
+    "rating": 1,
+    "city": "Boston",
+    "region": "MA",
+    "longitude": -71.0594645986262,
+    "street": "109 Kingston St",
+    "postal_code": "02111",
+    "latitude": 42.3524373067332
+  }
+}
 ```
 
 ### Reverse Geocode
@@ -17,6 +29,18 @@ $ curl -H 'Authorization: myToken' \
 $ curl -H 'Authorization: myToken' \
        -d '{"latitude": 42.3495585006773, "longitude": -71.0503819575293}' \
        http://localhost:5050/reverse/
+
+{
+    "result": {
+        "rating": null,
+        "city": "Boston",
+        "region": "MA",
+        "longitude": -71.0503819575293,
+        "street": "49 Melcher St",
+        "postal_code": "02210",
+        "latitude": 42.3495585006773
+    }
+}
 ```
 
 
@@ -57,13 +81,13 @@ $ foreman start
 Install [fabric](http://www.fabfile.org/) and define your ssh config to have
 an alias for the machine you want to deploy to.
 
-Put the settings you want on the deployment machine in `geo/settings/deploy.py`
+Put the settings you want on the deployment machine in `geo/settings/deployment.py`
 and then
 
 ```bash
 $ fab deploy:host=ssh_config_alias
 ```
 
-Note that neither memcached nor POSTGis are configured by the puppet
+Note that neither memcached nor POSTGIS are configured by the puppet
 provisioning step, so you will reasonably need to have those already running
 somewhere and have your deployment settings point to them
