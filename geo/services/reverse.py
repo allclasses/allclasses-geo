@@ -41,8 +41,9 @@ class ReverseGeocodeService(object):
             if street_num and street_name:
                 return {
                     "rating": None,
-                    "street": "%s %s %s" % (street_num, street_name,
-                                            street_type),
+                    "street_num": street_num,
+                    "street_name": street_name,
+                    "street_type": street_type,
                     "city": city,
                     "region": region,
                     "postal_code": postal_code,

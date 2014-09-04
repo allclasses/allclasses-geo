@@ -16,7 +16,9 @@ $ curl -H 'Authorization: myToken' \
     "city": "Boston",
     "region": "MA",
     "longitude": -71.0594645986262,
-    "street": "109 Kingston St",
+    "street_num": "109",
+    "street_name": "Kingston",
+    "street_type": "St",
     "postal_code": "02111",
     "latitude": 42.3524373067332
   }
@@ -36,7 +38,9 @@ $ curl -H 'Authorization: myToken' \
         "city": "Boston",
         "region": "MA",
         "longitude": -71.0503819575293,
-        "street": "49 Melcher St",
+        "street_num": "49",
+        "street_name": "Melcher",
+        "street_type": "St",
         "postal_code": "02210",
         "latitude": 42.3495585006773
     }

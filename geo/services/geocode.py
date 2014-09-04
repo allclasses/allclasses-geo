@@ -5,8 +5,8 @@ from geo.services.connections import get_tiger_db_conn, put_tiger_db_conn
 class GeocodeService(object):
     def get(self, data):
         """
-        Geocodes a given location string and returns either a dictionary of it's
-        coordinates or None
+        Geocodes a given location string and returns either a dictionary of
+        it's coordinates or None
         """
         if not isinstance(data.get("location"), basestring):
             raise AbortException(400, "location string required")
@@ -41,8 +41,9 @@ class GeocodeService(object):
             if latitude and longitude:
                 return {
                     "rating": rating,
-                    "street": "%s %s %s" % (street_num, street_name,
-                                            street_type),
+                    "street_num": street_num,
+                    "street_name": street_name,
+                    "street_type": street_type,
                     "city": city,
                     "region": region,
                     "postal_code": postal_code,
