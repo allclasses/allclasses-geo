@@ -6,4 +6,6 @@ POSTGIS_TIGER_DSN = ('dbname=postgisgeo '
                      'user=postgis_user '
                      'host=localhost')
 
+NOMINATIM_SEARCH_BASE = "http://localhost/nominatim"
+
 SECRET_KEY = 'Not a secret'

@@ -1,16 +1,38 @@
+import requests
+
+import geo.settings as settings
 from geo.requestlib import AbortException
 from geo.services.connections import get_tiger_db_conn, put_tiger_db_conn
 
 
 class GeocodeService(object):
     def get(self, data):
+        method = data.pop("method", "nominatim")
+        if not hasattr(self, "get_%s" % method):
+            raise AbortException(400, "Geocode method not known")
+        if not isinstance(data.get("location"), basestring):
+            raise AbortException(400, "location string required")
+
+        return getattr(self, "get_%s" % method)(data)
+
+    def get_nominatim(self, data):
+        resp = requests.get(
+            settings.NOMINATIM_SEARCH_BASE,
+            params={"q": data["location"], "format": "json", "limit": 1}
+        )
+        j = resp.json()
+        if j and "lat" in j[0] and "lon" in j[0]:
+            return {
+                "location": data["location"],
+                "latitude": j[0]["lat"],
+                "longitude": j[0]["lon"]
+            }
+
+    def get_tiger(self, data):
         """
         Geocodes a given location string and returns either a dictionary of
         it's coordinates or None
         """
-        if not isinstance(data.get("location"), basestring):
-            raise AbortException(400, "location string required")
-
         query = "SELECT g.rating," \
                 " ST_X(g.geomout) AS longitude," \
                 " ST_Y(g.geomout) AS latitude," \
