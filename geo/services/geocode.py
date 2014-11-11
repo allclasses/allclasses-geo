@@ -7,6 +7,11 @@ from geo.services.connections import get_tiger_db_conn, put_tiger_db_conn
 
 class GeocodeService(object):
     def get(self, data):
+        """
+        Geocodes a given location string and returns either a dictionary of
+        it's coordinates or None
+        Takes an additional `method` parameter to switch geocoder methods
+        """
         method = data.pop("method", "nominatim")
         if not hasattr(self, "get_%s" % method):
             raise AbortException(400, "Geocode method not known")
@@ -24,15 +29,11 @@ class GeocodeService(object):
         if j and "lat" in j[0] and "lon" in j[0]:
             return {
                 "location": data["location"],
-                "latitude": j[0]["lat"],
-                "longitude": j[0]["lon"]
+                "latitude": float(j[0]["lat"]),
+                "longitude": float(j[0]["lon"])
             }
 
     def get_tiger(self, data):
-        """
-        Geocodes a given location string and returns either a dictionary of
-        it's coordinates or None
-        """
         query = "SELECT g.rating," \
                 " ST_X(g.geomout) AS longitude," \
                 " ST_Y(g.geomout) AS latitude," \
@@ -62,13 +63,7 @@ class GeocodeService(object):
 
             if latitude and longitude:
                 return {
-                    "rating": rating,
-                    "street_num": street_num,
-                    "street_name": street_name,
-                    "street_type": street_type,
-                    "city": city,
-                    "region": region,
-                    "postal_code": postal_code,
+                    "location": data["location"],
                     "latitude": latitude,
                     "longitude": longitude
                 }
